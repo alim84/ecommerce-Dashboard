@@ -52,7 +52,7 @@ export function DefaultSidebar() {
           <ListItemPrefix>
             <MdFormatListBulletedAdd className="h-5 w-5" />
           </ListItemPrefix>
-          All Product
+          <Link to="/allproduct">All Product</Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
