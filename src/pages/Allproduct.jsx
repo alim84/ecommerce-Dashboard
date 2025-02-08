@@ -15,7 +15,14 @@ import {
   Input,
 } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["Image", "Amount", "Date", "Status", "Account", ""];
+const TABLE_HEAD = [
+  "Image",
+  "Product Name",
+  "Product Dexcription",
+  "Price",
+  "Category",
+  "Action",
+];
 
 const TABLE_ROWS = [
   {
@@ -119,7 +126,7 @@ export function Allproduct() {
                 {
                   img,
                   name,
-                  amount,
+
                   date,
                   status,
                   account,
@@ -143,22 +150,15 @@ export function Allproduct() {
                           size="md"
                           className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                         />
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-bold"
-                        >
-                          {name}
-                        </Typography>
                       </div>
                     </td>
                     <td className={classes}>
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-bold"
                       >
-                        {amount}
+                        {name}
                       </Typography>
                     </td>
                     <td className={classes}>

@@ -1,4 +1,5 @@
-import  { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -7,12 +8,28 @@ const AddCategory = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can handle the form submission logic here, like sending the data to an API
-    console.log({
-      categoryName,
-      categoryDescription,
-      categoryImage,
-    });
+
+    let data = new FormData();
+    data.append("name", FormData.categoryName);
+    data.append("description", FormData.categoryDescription);
+    if (categoryImage) {
+      data.append("image", categoryImage);
+    }
+
+    axios
+      .post("http://localhost:5000/api/v1/category/createcategory", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((data) => {
+        console.log(data);
+      }).catch((error)=>{
+        console.log(error)
+      })
+    {
+      categoryName, categoryDescription, categoryImage;
+    }
   };
 
   return (
