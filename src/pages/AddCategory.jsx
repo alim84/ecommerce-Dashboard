@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios, { toFormData } from "axios";
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -10,8 +10,8 @@ const AddCategory = () => {
     e.preventDefault();
 
     let data = new FormData();
-    data.append("name", FormData.categoryName);
-    data.append("description", FormData.categoryDescription);
+    data.append("name", categoryName);
+    data.append("description", categoryDescription);
     if (categoryImage) {
       data.append("image", categoryImage);
     }
@@ -27,11 +27,12 @@ const AddCategory = () => {
       }).catch((error)=>{
         console.log(error)
       })
-    {
-      categoryName, categoryDescription, categoryImage;
-    }
+    // {
+    //   categoryName, categoryDescription, categoryImage;
+    // }
   };
-
+  console.log(categoryName)
+  console.log(categoryDescription)
   return (
     <div className="mx-auto w-full max-w-4xl mt-10 pt-6 bg-white rounded-lg shadow-lg p-8">
       <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
@@ -49,6 +50,7 @@ const AddCategory = () => {
             id="categoryName"
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
+            
             placeholder="Enter category name"
             className="mt-2 p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
             required
