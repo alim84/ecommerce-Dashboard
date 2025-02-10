@@ -1,30 +1,37 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 // Static categories (you can replace this with an API call or data from your backend)
-const staticCategories = [
-  {
-    categoryName: "Electronics",
-    categoryDescription: "Latest gadgets and electronics",
-    categoryImage: "https://picsum.photos/200/300", // Example static image path
-  },
-  {
-    categoryName: "Clothing",
-    categoryDescription: "Fashionable and trendy clothes",
-    categoryImage: "https://picsum.photos/200/300", // Example static image path
-  },
-  {
-    categoryName: "Furniture",
-    categoryDescription: "Furniture for all your needs",
-    categoryImage: "https://picsum.photos/200/300", // Example static image path
-  },
-];
+// const staticCategories = [
+//   {
+//     categoryName: "Electronics",
+//     categoryDescription: "Latest gadgets and electronics",
+//     categoryImage: "https://picsum.photos/200/300", // Example static image path
+//   },
+//   {
+//     categoryName: "Clothing",
+//     categoryDescription: "Fashionable and trendy clothes",
+//     categoryImage: "https://picsum.photos/200/300", // Example static image path
+//   },
+//   {
+//     categoryName: "Furniture",
+//     categoryDescription: "Furniture for all your needs",
+//     categoryImage: "https://picsum.photos/200/300", // Example static image path
+//   },
+// ];
 
 const AllCategory = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    // Set the categories (could come from an API or a static list)
-    setCategories(staticCategories);
+    let allCategory = async () => {
+      const data = await axios.get(
+        "http://localhost:5000/api/v1/category/allcategory"
+      );
+      setCategories(data.data.data);
+     
+    };
+    allCategory();
   }, []);
 
   return (
@@ -45,16 +52,16 @@ const AllCategory = () => {
             {categories.map((category, index) => (
               <tr key={index} className="border-b">
                 <td className="px-4 py-2 text-center">
-                  {category.categoryImage && (
+                  {/* {category.image && ( */}
                     <img
-                      src={category.categoryImage} // Static image or dynamically sourced
-                      alt={category.categoryName}
+                      src={category.image} // Static image or dynamically sourced
+                      // alt={category.name}
                       className="w-20 h-20 object-cover rounded-md"
                     />
-                  )}
+                  {/* )} */}
                 </td>
-                <td className="px-4 py-2">{category.categoryName}</td>
-                <td className="px-4 py-2">{category.categoryDescription}</td>
+                <td className="px-4 py-2">{category.name}</td>
+                <td className="px-4 py-2">{category.description}</td>
               </tr>
             ))}
           </tbody>
