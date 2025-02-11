@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { axios } from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { userLoginInformation } from "../slices/userSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlelogin = (e) => {
     e.preventDefault();
@@ -16,8 +19,13 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((data) => {
-        console.log(data);
-        navigate("/");
+        if (data.data.data.role == "admin") {
+          dispatch(userLoginInformation(data.data.data));
+          localStorage.setItem("userdata", JSON.stringify(data.data.data));
+          navigate("/");
+        } else {
+          alert("Donot Access Admin Dashboard");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -76,7 +84,7 @@ const Login = () => {
           </button>
         </form>
         <div className="mt-6 text-center text-sm text-gray-600">
-          Don't have an account?
+          Dont have an account?
           <a
             href="#"
             className="text-indigo-600 hover:text-indigo-500 font-medium"

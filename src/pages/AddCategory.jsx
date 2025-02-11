@@ -1,7 +1,8 @@
 import { useState } from "react";
-import axios, { toFormData } from "axios";
+import axios  from "axios";
 import { Spinner } from "@material-tailwind/react";
 import { toast, Bounce } from "react-toastify";
+import Cookies from "js-cookie";
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -10,6 +11,8 @@ const AddCategory = () => {
   const [loader, setLoader] = useState(false);
 
   const handleSubmit = (e) => {
+    const token =Cookies.get("token")
+    console.log(token)
     e.preventDefault();
     setLoader(true);
     let data = new FormData();
@@ -23,6 +26,7 @@ const AddCategory = () => {
       .post("http://localhost:5000/api/v1/category/createcategory", data, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "Cookie":`token=${token}`
         },
       })
       .then((data) => {

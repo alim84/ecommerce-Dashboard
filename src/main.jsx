@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { ToastContainer, Bounce } from "react-toastify";
+import { store } from './store.js'
+import { Provider } from 'react-redux'
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -19,6 +21,11 @@ createRoot(document.getElementById("root")).render(
       theme="light"
       transition={Bounce}
     />
+<Provider store={store}>
+
     <App />
+
+</Provider>
+
   </StrictMode>
 );
