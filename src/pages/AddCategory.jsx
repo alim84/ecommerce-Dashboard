@@ -28,6 +28,7 @@ const AddCategory = () => {
           "Content-Type": "multipart/form-data",
           "Cookie":`token=${token}`
         },
+        withCredentials:true
       })
       .then((data) => {
         toast.success(data ? data.data.msg : "category creted successfull", {

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { userLoginInformation } from "../slices/userSlice";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +22,10 @@ const Login = () => {
       .then((data) => {
         if (data.data.data.role == "admin") {
           dispatch(userLoginInformation(data.data.data));
-          localStorage.setItem("userdata", JSON.stringify(data.data.data));
+          Cookies.set("user", String(data.data.data.role + data.data.data.id), {
+            expires: 10 / 1440,
+          });
+          // localStorage.setItem("userdata", JSON.stringify(data.data.data));
           navigate("/");
         } else {
           alert("Donot Access Admin Dashboard");
