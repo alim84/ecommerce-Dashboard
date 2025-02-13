@@ -1,10 +1,12 @@
-import  { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const AddProductForm = () => {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productImage, setProductImage] = useState(null);
-  const [productPrice, setProductPrice] = useState("");
+  const [sellingprice, setsellingprice] = useState("");
+  const [discountprice, setdiscountprice] = useState("");
   const [productCategory, setProductCategory] = useState("");
 
   const handleSubmit = (e) => {
@@ -14,10 +16,19 @@ const AddProductForm = () => {
       productName,
       productDescription,
       productImage,
-      productPrice,
+      sellingprice,
       productCategory,
     });
   };
+  useEffect(() => {
+    async function getAllCategory() {
+      axios
+        .get("http://localhost:5000/api/v1/category/allcategory")
+        .then((data) => {
+          console.log(data);
+        });
+    }
+  });
 
   return (
     <div className=" mx-auto w-[1200px] mt-10 pt-6 bg-white rounded-lg shadow-lg">
@@ -70,19 +81,34 @@ const AddProductForm = () => {
             onChange={(e) => setProductImage(e.target.files[0])}
             className="mt-2 p-2 border border-gray-300 rounded-lg"
             required
+            multiple
           />
         </div>
 
         {/* Product Price */}
         <div className="flex flex-col">
-          <label htmlFor="productPrice" className="text-lg text-gray-700">
-            Product Price
+          <label htmlFor="selling price" className="text-lg text-gray-700">
+            Product Selling Price
           </label>
           <input
             type="number"
-            id="productPrice"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
+            id="setsellingprice"
+            value={sellingprice}
+            onChange={(e) => setsellingprice(e.target.value)}
+            placeholder="Enter product price"
+            className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="discount price" className="text-lg text-gray-700">
+            Product Descount Price
+          </label>
+          <input
+            type="number"
+            id="discountprice"
+            value={discountprice}
+            onChange={(e) => setdiscountprice(e.target.value)}
             placeholder="Enter product price"
             className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
             required
