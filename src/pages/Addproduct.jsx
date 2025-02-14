@@ -8,6 +8,7 @@ const AddProductForm = () => {
   const [sellingprice, setsellingprice] = useState("");
   const [discountprice, setdiscountprice] = useState("");
   const [productCategory, setProductCategory] = useState("");
+  const[allcategory, setAllcategory]=useState([])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,8 +26,10 @@ const AddProductForm = () => {
       axios
         .get("http://localhost:5000/api/v1/category/allcategory")
         .then((data) => {
-          console.log(data);
-        });
+          setAllcategory(data.data.data);
+        }).catch((error)=>{
+          console.log(error)
+        })
     }
   });
 
@@ -127,11 +130,11 @@ const AddProductForm = () => {
             className="mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
             required
           >
-            <option value="">Select a category</option>
-            <option value="electronics">Electronics</option>
-            <option value="fashion">Fashion</option>
-            <option value="home">Home & Living</option>
-            <option value="beauty">Beauty</option>
+        {allcategory?.map((item)=>(
+
+            <option key={item._id} value="electronics">{item.name}</option>
+        ))}
+       
           </select>
         </div>
 
